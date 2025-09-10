@@ -1,5 +1,5 @@
 -- AVISO LEGAL: Este script é protegido por direitos autorais. Uso não autorizado, cópia ou distribuição é proibido e pode resultar em ações legais.
--- Criado por [SEU_NOME_OU_NOME_DO_JOGO]. Contato: [SEU_CONTATO]. Última atualização: 10/09/2025.
+-- Criado por Tiago . Contato: outifit898@gmail.com . Última atualização: 10/09/2025.
 
 local _0x1 = game:GetService("Players") -- Ofuscado: Players
 local _0x2 = _0x1.LocalPlayer -- Ofuscado: jogador local
