@@ -1,0 +1,193 @@
+-- AVISO LEGAL: Este script é protegido por direitos autorais. Uso não autorizado, cópia ou distribuição é proibido e pode resultar em ações legais.
+-- Criado por [SEU_NOME_OU_NOME_DO_JOGO]. Contato: [SEU_CONTATO]. Última atualização: 10/09/2025.
+
+local _0x1 = game:GetService("Players") -- Ofuscado: Players
+local _0x2 = _0x1.LocalPlayer -- Ofuscado: jogador local
+local _0x3 = "HitboxControlGui" -- Ofuscado: nome da GUI
+local _0x4 = 10 -- Tamanho padrão da hitbox
+local _0x5 = 50 -- Tamanho máximo da hitbox
+
+-- Verificação de ambiente (exemplo: checa se está no seu jogo)
+local _0x6 = game.PlaceId -- ID do jogo
+local _0x7 = {123456789} -- Substitua pelo PlaceId do seu jogo
+local _0x8 = false
+for _, id in pairs(_0x7) do
+    if _0x6 == id then
+        _0x8 = true
+        break
+    end
+end
+if not _0x8 then
+    warn("Ambiente não autorizado detectado! Script desativado.")
+    return
+end
+
+-- Função para criar hitbox (ofuscada)
+local function _0x9(_0xA, _0xB)
+    local _0xC = _0xA.Character
+    if not _0xC or _0xA == _0x2 then return end
+    
+    local _0xD = _0xC:FindFirstChild("HumanoidRootPart")
+    if not _0xD then return end
+    
+    local _0xE = _0xC:FindFirstChild("ExpandedHitbox")
+    if _0xE then
+        _0xE:Destroy()
+    end
+    
+    local _0xF = Instance.new("Part")
+    _0xF.Name = "ExpandedHitbox"
+    _0xF.Size = Vector3.new(_0xB, _0xB, _0xB)
+    _0xF.Transparency = 0.5
+    _0xF.BrickColor = BrickColor.new("White")
+    _0xF.CanCollide = false
+    _0xF.Anchored = false
+    _0xF.Position = _0xD.Position
+    _0xF.Parent = _0xC
+    
+    local _0x10 = Instance.new("WeldConstraint")
+    _0x10.Part0 = _0xD
+    _0x10.Part1 = _0xF
+    _0x10.Parent = _0xF
+    
+    _0xF.Touched:Connect(function(_0x11)
+        print("Hitbox de " .. _0xA.Name .. " tocou " .. _0x11.Name)
+        local _0x12 = _0x11.Parent and _0x11.Parent:FindFirstChild("Humanoid")
+        if _0x12 then
+            print("Tocou um personagem: " .. _0x11.Parent.Name)
+        end
+    end)
+end
+
+-- Função para atualizar hitboxes
+local function _0x13(_0xB)
+    for _, _0xA in pairs(_0x1:GetPlayers()) do
+        if _0xA ~= _0x2 then
+            _0x9(_0xA, _0xB)
+        end
+    end
+end
+
+-- Detecção de exploit (simples)
+local function _0x14()
+    if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.F12) then -- Exemplo: F12 pode indicar dev tools
+        warn("Atividade suspeita detectada! Script desativado.")
+        return false
+    end
+    return true
+end
+if not _0x14() then return end
+
+-- Aguarda PlayerGui
+local _0x15 = _0x2:WaitForChild("PlayerGui", 10)
+if not _0x15 then
+    warn("Erro: PlayerGui não encontrada!")
+    return
+end
+
+-- Cria ScreenGui
+local _0x16 = Instance.new("ScreenGui")
+_0x16.Name = _0x3
+_0x16.Enabled = true
+_0x16.ResetOnSpawn = false
+_0x16.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+_0x16.IgnoreGuiInset = true
+_0x16.Parent = _0x15
+
+-- Cria Frame
+local _0x17 = Instance.new("Frame")
+_0x17.Size = UDim2.new(0, 200, 0, 100)
+_0x17.Position = UDim2.new(0, 10, 0, 40)
+_0x17.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+_0x17.BackgroundTransparency = 0.2
+_0x17.BorderSizePixel = 0
+_0x17.ZIndex = 1
+_0x17.Parent = _0x16
+
+local _0x18 = Instance.new("UICorner")
+_0x18.CornerRadius = UDim.new(0, 10)
+_0x18.Parent = _0x17
+
+-- Cria TextButton
+local _0x19 = Instance.new("TextButton")
+_0x19.Size = UDim2.new(0, 180, 0, 40)
+_0x19.Position = UDim2.new(0, 10, 0, 10)
+_0x19.Text = "Expandir Hitboxes"
+_0x19.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
+_0x19.TextColor3 = Color3.fromRGB(255, 255, 255)
+_0x19.Font = Enum.Font.GothamBold
+_0x19.TextSize = 16
+_0x19.BorderSizePixel = 0
+_0x19.ZIndex = 2
+_0x19.Parent = _0x17
+
+local _0x1A = Instance.new("UICorner")
+_0x1A.CornerRadius = UDim.new(0, 8)
+_0x1A.Parent = _0x19
+
+local _0x1B = Instance.new("UIGradient")
+_0x1B.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(70, 130, 180)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(100, 180, 255))
+})
+_0x1B.Rotation = 45
+_0x1B.Parent = _0x19
+
+-- Cria TextBox
+local _0x1C = Instance.new("TextBox")
+_0x1C.Size = UDim2.new(0, 180, 0, 30)
+_0x1C.Position = UDim2.new(0, 10, 0, 60)
+_0x1C.Text = tostring(_0x4)
+_0x1C.PlaceholderText = "Tamanho da Hitbox"
+_0x1C.BackgroundColor3 = Color3.fromRGB(220, 220, 220)
+_0x1C.TextColor3 = Color3.fromRGB(0, 0, 0)
+_0x1C.Font = Enum.Font.Gotham
+_0x1C.TextSize = 14
+_0x1C.BorderSizePixel = 0
+_0x1C.ZIndex = 2
+_0x1C.Parent = _0x17
+
+local _0x1D = Instance.new("UICorner")
+_0x1D.CornerRadius = UDim.new(0, 8)
+_0x1D.Parent = _0x1C
+
+-- Ação do botão
+_0x19.MouseButton1Click:Connect(function()
+    if not _0x14() then return end -- Verifica exploit novamente
+    local _0x1E = tonumber(_0x1C.Text)
+    if _0x1E and _0x1E > 0 and _0x1E <= _0x5 then
+        _0x13(_0x1E)
+        print("Hitboxes ajustadas para: " .. _0x1E)
+    else
+        warn("Erro: Insira um número válido (1 a " .. _0x5 .. ").")
+    end
+end)
+
+-- Aplica hitboxes para novos jogadores
+_0x1.PlayerAdded:Connect(function(_0x1F)
+    if _0x1F ~= _0x2 then
+        _0x1F.CharacterAdded:Connect(function()
+            _0x9(_0x1F, tonumber(_0x1C.Text) or _0x4)
+        end)
+    end
+end)
+
+-- Aplica hitboxes aos jogadores existentes
+for _, _0x1F in pairs(_0x1:GetPlayers()) do
+    if _0x1F ~= _0x2 and _0x1F.Character then
+        _0x9(_0x1F, _0x4)
+    end
+end
+
+-- Atualiza hitboxes ao sair
+_0x1.PlayerRemoving:Connect(function(_0x20)
+    if _0x20 ~= _0x2 then
+        _0x13(tonumber(_0x1C.Text) or _0x4)
+    end
+end)
+
+-- Depuração
+print(_0x3 .. " inicializada.")
+print("Frame: " .. (_0x17.Name or "Sem nome"))
+print("Botão: " .. _0x19.Name)
+print("TextBox: " .. _0x1C.Name)
