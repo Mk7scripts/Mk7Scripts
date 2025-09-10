@@ -1,5 +1,5 @@
 -- AVISO LEGAL: Este script é protegido por direitos autorais. Uso não autorizado, cópia ou distribuição é proibido e pode resultar em ações legais.
--- Criado por Tiago . Contato: outifit898@gmail.com . Última atualização: 10/09/2025.
+-- Criado por [Tiago]. Contato: [tiago16cm]. Última atualização: 10/09/2025.
 
 local _0x1 = game:GetService("Players") -- Ofuscado: Players
 local _0x2 = _0x1.LocalPlayer -- Ofuscado: jogador local
@@ -7,18 +7,17 @@ local _0x3 = "HitboxControlGui" -- Ofuscado: nome da GUI
 local _0x4 = 10 -- Tamanho padrão da hitbox
 local _0x5 = 50 -- Tamanho máximo da hitbox
 
--- Verificação de ambiente (exemplo: checa se está no seu jogo)
-local _0x6 = game.PlaceId -- ID do jogo
-local _0x7 = {123456789} -- Substitua pelo PlaceId do seu jogo
+-- Verificação de usuário autorizado (substitua pelo seu UserId)
+local _0x7 = {9289585223} -- Substitua por seu UserId
 local _0x8 = false
 for _, id in pairs(_0x7) do
-    if _0x6 == id then
+    if _0x2.UserId == id then
         _0x8 = true
         break
     end
 end
 if not _0x8 then
-    warn("Ambiente não autorizado detectado! Script desativado.")
+    warn("Usuário não autorizado! Script desativado.")
     return
 end
 
@@ -70,7 +69,7 @@ end
 
 -- Detecção de exploit (simples)
 local function _0x14()
-    if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.F12) then -- Exemplo: F12 pode indicar dev tools
+    if game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode.F12) then
         warn("Atividade suspeita detectada! Script desativado.")
         return false
     end
@@ -153,7 +152,7 @@ _0x1D.Parent = _0x1C
 
 -- Ação do botão
 _0x19.MouseButton1Click:Connect(function()
-    if not _0x14() then return end -- Verifica exploit novamente
+    if not _0x14() then return end
     local _0x1E = tonumber(_0x1C.Text)
     if _0x1E and _0x1E > 0 and _0x1E <= _0x5 then
         _0x13(_0x1E)
